@@ -1,20 +1,20 @@
 <?php
-add_action( 'widgets_init', 'd_postlists' );
+add_action( 'widgets_init', 'postlists' );
 
-function d_postlists() {
-	register_widget( 'd_postlist' );
+function postlists() {
+	register_widget( 'postlist' );
 }
 
-class d_postlist extends WP_Widget {
-	function d_postlist() {
-		$widget_ops = array( 'classname' => 'd_postlist', 'description' => '图文展示（最新文章+热门文章+随机文章）' );
-		$this->WP_Widget( 'd_postlist', 'D-聚合文章', $widget_ops, $control_ops );
+class postlist extends WP_Widget {
+	function postlist() {
+		$widget_ops = array( 'classname' => 'postlist', 'description' => '图文展示（最新文章+热门文章+随机文章）' );
+		$this->WP_Widget( 'postlist', '聚合文章', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
 		extract( $args );
 
-		$title        = apply_filters('widget_name', $instance['title']);
+		$title        = $instance['title'] ? apply_filters('widget_name', $instance['title']) : '聚合文章';
 		$limit        = $instance['limit'];
 		$cat          = $instance['cat'];
 		$orderby      = $instance['orderby'];

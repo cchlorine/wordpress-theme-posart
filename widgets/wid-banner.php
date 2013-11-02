@@ -1,14 +1,14 @@
 <?php  
-add_action( 'widgets_init', 'd_banners' );
+add_action( 'widgets_init', 'banners' );
 
-function d_banners() {
-	register_widget( 'd_banner' );
+function banners() {
+	register_widget( 'banner' );
 }
 
-class d_banner extends WP_Widget {
-	function d_banner() {
-		$widget_ops = array( 'classname' => 'd_banner', 'description' => '显示一个广告(包括富媒体)' );
-		$this->WP_Widget( 'd_banner', 'D-广告', $widget_ops, $control_ops );
+class banner extends WP_Widget {
+	function banner() {
+		$widget_ops = array( 'classname' => 'banner', 'description' => '显示一个广告(包括富媒体)' );
+		$this->WP_Widget( 'banner', '广告', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -18,7 +18,7 @@ class d_banner extends WP_Widget {
 		$code = $instance['code'];
 
 		echo $before_widget;
-		echo '<div class="d_banner_inner">'.$code.'</div>';
+		echo '<div class="banner_inner">'.$code.'</div>';
 		echo $after_widget;
 	}
 

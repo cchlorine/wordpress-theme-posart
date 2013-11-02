@@ -1,31 +1,28 @@
 <?php  
-add_action( 'widgets_init', 'd_tags' );
+add_action( 'widgets_init', 'tags' );
 
-function d_tags() {
-	register_widget( 'd_tag' );
+function tags() {
+	register_widget( 'tag' );
 }
 
-class d_tag extends WP_Widget {
-	function d_tag() {
-		$widget_ops = array( 'classname' => 'd_tag', 'description' => '显示热门标签' );
-		$this->WP_Widget( 'd_tag', 'D-标签云', $widget_ops, $control_ops );
+class tag extends WP_Widget {
+	function tag() {
+		$widget_ops = array( 'classname' => 'tag', 'description' => '显示热门标签' );
+		$this->WP_Widget( 'tag', '标签云', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
 		extract( $args );
 
-		$title = apply_filters('widget_name', $instance['title']);
+		$title = $instance['title'] ? apply_filters('widget_name', $instance['title']) : '标签云';
 		$count = $instance['count'];
 		$offset = $instance['offset'];
 		$more = $instance['more'];
 		$link = $instance['link'];
 
-		$mo='';
-		if( $more!='' && $link!='' ) $mo='<a class="btn btn-primary" href="'.$link.'">'.$more.'</a>';
-
 		echo $before_widget;
 		echo $before_title.$mo.$title.$after_title; 
-		echo '<div class="d_tags">';
+		echo '<div class="tags">';
 		$tags_list = get_tags('orderby=count&order=DESC&number='.$count.'&offset='.$offset);
 		if ($tags_list) { 
 			foreach($tags_list as $tag) {

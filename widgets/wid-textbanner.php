@@ -1,20 +1,20 @@
 <?php  
-add_action( 'widgets_init', 'd_textbanners' );
+add_action( 'widgets_init', 'textbanners' );
 
-function d_textbanners() {
-	register_widget( 'd_textbanner' );
+function textbanners() {
+	register_widget( 'textbanner' );
 }
 
-class d_textbanner extends WP_Widget {
-	function d_textbanner() {
-		$widget_ops = array( 'classname' => 'd_textbanner', 'description' => '显示一个文本特别推荐' );
-		$this->WP_Widget( 'd_textbanner', 'D-特别推荐', $widget_ops, $control_ops );
+class textbanner extends WP_Widget {
+	function textbanner() {
+		$widget_ops = array( 'classname' => 'textbanner', 'description' => '显示一个文本特别推荐' );
+		$this->WP_Widget( 'textbanner', '特别推荐', $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
 		extract( $args );
 
-		$title = apply_filters('widget_name', $instance['title']);
+		$title = $instance['title'] ? apply_filters('widget_name', $instance['title']) : '特别推荐';
 		$tag = $instance['tag'];
 		$content = $instance['content'];
 		$link = $instance['link'];

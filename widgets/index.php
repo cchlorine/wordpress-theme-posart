@@ -1,8 +1,6 @@
 <?php  
 
 include('wid-banner.php');
-include('wid-slidebanner.php');
-include('wid-readers.php');
 include('wid-postlist.php');
 include('wid-comment.php');
 include('wid-tags.php');
