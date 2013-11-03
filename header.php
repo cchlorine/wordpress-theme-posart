@@ -14,7 +14,7 @@
 <body>
 	<div id="wrapper">
 	<li class="menu_submain"><a class="ic ic-menu"></a></li>
-	<nav class="menu_submenu">
+	<div class="menu_submenu">
 		<ul>
         	<li class="nav nav-search">
             	<div class="search_container cl">
@@ -22,7 +22,7 @@
 				<form id="searchform" method="get" action="<?php bloginfo('url');?>">
                    	<input type="text" class="search" name="s" placeholder="Search" autocomplete="off">
 					<input type="submit" id="searchsubmit" value="Search" style="display:none;">
-                </form>
+                </form></div>
             </li>
 			<li class="nav nav-about cl">
             	<div class="ic z ic-about"></div>
@@ -45,5 +45,5 @@
             	<a href="<?php bloginfo('url');?>/wp-admin" class="z">Login</a>
             </li>
         </ul>
-	</nav>
+	</div>
 	<div id="container" class="cl">

@@ -36,7 +36,7 @@
 				<?php //comments_template(); ?>
 			<?php endwhile; ?>
 		</div>
-		<div class="box"><?php comments_template(); ?></div>
+		<div class="box comments"><?php comments_template(); ?></div>
 	</div>
 	<div class="nopa sidebar z mhidden">
 		<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('文章右侧') ) : ?>
