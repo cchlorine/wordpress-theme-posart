@@ -1,9 +1,7 @@
 <?php get_header(); ?>
-		<div class="unbody">
+		<div class="body nopa">
 			<?php get_breadcrumbs(); ?>
-		</div>
-		<div class="body nopa lists z">
-			<ul class="types cl"><li class="cat-item cat-item-1 <?php if(!$_GET['cat']) { echo 'current-cat'; }?>"><a href="<?php bloginfo('url'); ?>" title="查看所有文章">全部</a></li>
+			<div class="lists"><ul class="types cl"><li class="cat-item cat-item-1 <?php if(!$_GET['cat']) { echo 'current-cat'; }?>"><a href="<?php bloginfo('url'); ?>" title="查看所有文章">全部</a></li>
 			<?php wp_list_cats("sort_column=ID&hide_empty=0&optioncount=1");?></ul>
 			<?php if (have_posts()) : ?> 
 				<?php while (have_posts()) : the_post(); ?> 
@@ -28,9 +26,6 @@
 				<?php endwhile; ?> 
 				<?php else : ?>
 				<?php endif; paging(); ?> 
-		</div>
-		<div class="nopa sidebar z mhidden">
-			<?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('首页右侧') ) : ?>
-			<?php endif; ?>
+			</div>
 		</div>
 <?php get_footer(); ?>

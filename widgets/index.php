@@ -1,10 +1,6 @@
 <?php  
 
-include('wid-banner.php');
-include('wid-postlist.php');
-include('wid-comment.php');
 include('wid-tags.php');
-include('wid-textbanner.php');
 
 add_action('widgets_init','unregister_d_widget');
 function unregister_d_widget(){

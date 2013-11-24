@@ -1,7 +1,9 @@
+			<div class="body sidebar"><?php if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('底部通用') ) : ?>
+			<?php endif; ?></div>
 		</div>	
 		<div class="site-footer" role="contentinfo">
-				Copyright © 2013 G's Blog | Design By <a href="http://www.dsu.pw">Goy</a>
-				Powered <a href="http://wordpress.org"> Wordpress!</a>
+			<p>Copyright © 2013 G's Blog | Design By <a href="http://www.dsu.pw">Goy</a>
+			Powered <a href="http://wordpress.org"> Wordpress!</a></p>
 		</div>
 		<div id="rightmenu">
 			<!-- Baidu Button BEGIN -->
