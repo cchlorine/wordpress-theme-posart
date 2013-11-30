@@ -6,13 +6,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>"/>
 	<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript">!window.jQuery && document.write('<script src="<?php bloginfo('template_url'); ?>/images/jquery.min.js"><\/script>');</script>
-	<script src="<?php bloginfo('template_url'); ?>/images/jquery.masonry.min.js"></script>
-	<script src="<?php bloginfo('template_url'); ?>/images/themes.js"></script>
+	<script type="text/javascript">!window.jQuery && document.write('<script src="<?php bloginfo('template_url'); ?>/posart/jquery.min.js"><\/script>');</script>
+	<script src="<?php bloginfo('template_url'); ?>/posart/jquery.masonry.min.js"></script>
+	<script src="<?php bloginfo('template_url'); ?>/posart/themes.js"></script>
 	<?php wp_head(); ?>
 </head>
 
 <body>
 	<div id="wrapper">
-
-	<div id="container" class="cl">
+		<div class="header body cl">
+			<a href="<?php bloginfo('url'); ?>" class="avatar z"><img src="<?php echo get_option('posart_logo'); ?>"></a>
+			<div class="info z">
+				<h2><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></h2>
+				<p><?php bloginfo('description'); ?></p>
+				<div class="contanct">
+					<?php posart_sns(); ?>
+				</div>
+				<form id="searchform" class="searchform" action="<?php bloginfo('url'); ?>" method="get" role="search">
+					<input id="s" type="text" class="search-input" name="s" value="" placeholder="Search~" autocomplete="off">
+				</form>
+			</div>
+		</div>
+		<div id="container" class="cl">

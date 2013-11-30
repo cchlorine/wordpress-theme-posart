@@ -1,17 +1,16 @@
 <?php get_header(); ?>
-
-		<div class="nopa body">
-			<?php get_breadcrumbs(); ?>
+		<div class="body">
+			<?php posart_breadcrumbs(); ?>
 			<div class="content">
 				<?php while ( have_posts() ) : the_post(); ?>
 					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?> style="position: relative;z-index: 1;">
 						<header class="entry-header">
-								<h1 class="entry-title"><?php the_title(); ?></h1>
+								<h2 class="entry-title"><?php the_title(); ?></h2>
 							<div class="entry-meta">
 							</div>
-							<?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
+							<?php if ( has_posart_thumbnail() && ! post_password_required() ) : ?>
 								<div class="entry-thumbnail mhidden">
-									<?php post_thumbnail( 641,237,'img-rounded' ); ?>
+									<?php posart_thumbnail( 641,237,'img-rounded' ); ?>
 								</div>
 							<?php endif; ?>
 						</header>

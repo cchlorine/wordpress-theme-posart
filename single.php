@@ -1,27 +1,26 @@
 <?php get_header(); ?>
 		<div class="unbody">
-			
-			<div id="nopa mkplayer-content">
+			<div id="mkplayer-content">
 				<span id="mkplayer-sectsel"></span><br />
 				<div id="mkplayer-box" class="playerHolder"></div>
 				<div class="placeHolder"></div>
 				<span id="mkplayer-desc" class="parts text-center"></span>
 			</div>
 		</div>
-		<div class="nopa body">
-			<?php get_breadcrumbs(); ?>
+		<div class="body">
+			<?php posart_breadcrumbs(); ?>
 			<div class="content">
 				<?php while ( have_posts() ) : the_post(); ?>
 					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?> style="position: relative;z-index: 1;">
 						<header class="entry-header">
-							<h1 class="entry-title"><?php the_title(); ?></h1>
+							<h2 class="entry-title"><?php the_title(); ?></h2>
 							<div class="entry-meta">
-							<p> <i class="icon-time icon12"></i> <?php the_time('Y-n-j') ?> &nbsp;&nbsp;&nbsp;
-								<i class="icon-tags icon12"></i> <?php the_category(', ') ?> <?php the_tags(' , ')?> &nbsp;&nbsp;&nbsp;</p>
+							<p> <?php the_time('Y-n-j') ?> &nbsp;&nbsp;&nbsp;
+								<?php the_category(', ') ?> &nbsp;&nbsp;&nbsp; <?php the_tags(' , ')?> &nbsp;&nbsp;&nbsp;</p>
 							</div>
 							<?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
 								<div class="entry-thumbnail mhidden">
-									<?php post_thumbnail( 641,237,'img-rounded' ); ?>
+									<?php posart_thumbnail( 641,237,'img-rounded' ); ?>
 								</div>
 							<?php endif; ?>
 						</header>

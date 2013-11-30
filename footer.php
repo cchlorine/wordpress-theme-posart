@@ -2,8 +2,8 @@
 			<?php endif; ?></div>
 		</div>	
 		<div class="site-footer" role="contentinfo">
-			<p>Copyright © 2013 G's Blog | Design By <a href="http://www.dsu.pw">Goy</a>
-			Powered <a href="http://wordpress.org"> Wordpress!</a></p>
+			<p>Copyright © 2013 <?php bloginfo('name'); ?> | Theme Posart Design By <a href="http://www.dsu.pw">Goy</a> |
+			Powered <a href="http://wordpress.org"> Wordpress!</a> <?php echo get_option('posart_footer'); ?></p>
 		</div>
 		<div id="rightmenu">
 			<!-- Baidu Button BEGIN -->
@@ -18,6 +18,7 @@
 			<a href="javascript:;" class="totop"></a>
 		</div>
 	</div>
+	<script src="<?php bloginfo('template_url'); ?>/posart/comments-ajax.js"></script>
 	<?php wp_footer(); ?>
 </body>
 </html>
