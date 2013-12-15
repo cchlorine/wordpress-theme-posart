@@ -1,4 +1,26 @@
 <?php
+	/*---------------- [ WP安全考虑 ]------------------*/
+	remove_action( 'wp_head', 'wp_generator' ) ;
+	remove_action( 'wp_head', 'wlwmanifest_link' ) ;
+	remove_action( 'wp_head', 'rsd_link' );
+	//移除多余rss
+	remove_action( 'wp_head', 'feed_links', 2 );
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
+	//添加评论NO html
+	add_filter( 'pre_comment_content', 'wp_specialchars' );
+	//Adminbar移除
+	add_filter( 'show_admin_bar', '__return_false' );
+	//添加登陆错误
+	function login_erros_tips(){
+		return '出现了很神奇的错误';
+	}
+	add_filter( 'login_errors', 'login_erros_tips' );
+	/*---------------- [ 主题更新检查 ]------------------*/
+	require_once(TEMPLATEPATH . '/posart/theme-update-checker.php'); 
+	$wpdaxue_update_checker = new ThemeUpdateChecker(
+		'PosArt',
+		'http://lab.dsu.pw/works/posart/info.json'
+	);
 	/*---------------- [ AJAX评论 ]------------------*/
 	add_action('init', 'ajax_comment');
 	function ajax_comment(){
@@ -119,41 +141,57 @@
 			//以下是評論式樣, 不含 "回覆". 要用你模板的式樣 copy 覆蓋.
 			?>
 				<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
-					<div id="comment-<?php comment_ID(); ?>">
-						<div class="comment-author vcard">
-							<?php echo get_avatar( $comment,$size='40'); ?>
-							<?php printf( __( '<cite class="fn">%s</cite> <span class="says">says:</span>'), get_comment_author_link() ); ?>
-						</div>
-						<?php if ( $comment->comment_approved == '0' ) : ?>
-							<em><?php _e( 'Your comment is awaiting moderation.' ); ?></em><br />
-						<?php endif; ?>
-						<div class="comment-meta commentmetadata"><a href="<?php echo esc_url( get_comment_link( $comment->comment_ID ) ); ?>"><?php printf( __( '%1$s at %2$s' ), get_comment_date(),  get_comment_time() ); ?></a><?php edit_comment_link( __( '(Edit)' ), ' ' ); ?></div>
-						<div class="comment-body"><?php comment_text(); ?></div>
-					</div>
+				<article id="comment-<?php comment_ID(); ?>" class="cl comment">
+					<header class="comment_meta_head comment-meta comment-author vcard">
+						<?php
+							echo get_avatar( $comment, 44 );
+							printf( '<cite class="fn"><em class="authorname">%1$s</em>',
+								get_comment_author_link() );
+							printf( '<time datetime="%2$s">%3$s</time>',
+								esc_url( get_comment_link( $comment->comment_ID ) ),
+								get_comment_time( 'c' ),
+								sprintf( '%1$s at %2$s' , get_comment_date('Y/m/d'), get_comment_time('H:m') )
+							);
+						?></cite>
+					</header>
+
+					<?php if ( '0' == $comment->comment_approved ) : ?>
+						<p class="comment-awaiting-moderation"><?php _e('你的评论正在等待和谐审查','clrs'); ?></p>
+					<?php endif; ?>
+
+					<section class="comment-content comment">
+						<?php comment_text(); ?>
+					</section>
+
+				</article>
 
 			<?php die(); //以上是評論式樣, 不含 "回覆". 要用你模板的式樣 copy 覆蓋.
 		}else{return;}
 	}
-
-	// 增加: 錯誤提示功能
 	function ajax_comment_err($a) { 
 		header('HTTP/1.0 500 Internal Server Error');
 		header('Content-Type: text/plain;charset=UTF-8');
 		echo $a;
 		exit;
 	}
+	/*---------------- [ 禁止日文英文评论 ]------------------*/
+	function comment_post_ad_get_out( $incoming_comment ) {
+		$pattern = '/[一-龥]/u';
+		$jpattern ='/[ぁ-ん]+|[ァ-ヴ]+/u';
+		if(!preg_match($pattern, $incoming_comment['comment_content'])) {
+			ajax_comment_err( "写点汉字吧，博主外语很捉急！ Please write some chinese words！" );
+		}
+		if(preg_match($jpattern, $incoming_comment['comment_content'])){
+			ajax_comment_err( "日文滚粗！Japanese Get out！日本語出て行け！" );
+		}
+		return( $incoming_comment );
+	}
+	add_filter('preprocess_comment', 'comment_post_ad_get_out');
 	/*---------------- [ 文章简介 ]------------------*/
 	function posart_strimwidth($str ,$start , $width ,$trimmarker ){
 		$output = preg_replace('/^(?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$start.'}((?:[\x00-\x7F]|[\xC0-\xFF][\x80-\xBF]+){0,'.$width.'}).*/s','\1',$str);
 		return $output.$trimmarker;
 	}
-	
-	/*---------------- [ 去除版权 ]------------------*/
-	function wpbeginner_remove_version() {
-		return '';
-	}
-	add_filter('the_generator', 'wpbeginner_remove_version');
-	
 	/*---------------- [ 分页 ]------------------*/
 	function posart_paging() {
 		$p = 4;
@@ -232,18 +270,7 @@
             echo "</ul>";
         }
     }
-	/*---------------- [ 获取缩略图 ]------------------*/
-    add_theme_support( 'post-thumbnails' );
-    function posart_thumbnail( $width = 100,$height = 80 , $extraClass="" ,$moreInfo = "" ){
-        global $post;
-        if( has_post_thumbnail() ) {    //如果有缩略图，则显示缩略图
-            $timthumb_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID),'full');
-             $post_timthumb = '<img src="'.get_bloginfo("template_url").'/timthumb.php?src='.$timthumb_src[0].'&amp;h='.$height.'&amp;w='.$width.'&amp;zc=1" alt="'.$post->post_title.'" class="' . $extraClass.'"  height="'.$height.'" width="'.$width.'" '.$moreInfo.' />';
-            echo $post_timthumb;
-        } else  {
-            echo '';
-        }
-    };
+
 	/*---------------- [ 定义回复列表 ]------------------*/
 	if ( ! function_exists( 'posart_comments' ) ) :
 	function posart_comments( $comment, $args, $depth ) {
@@ -299,6 +326,7 @@
 				</section>
 
 			</article>
+		</li>
 		<?php
 	}
 	endif;

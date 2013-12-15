@@ -35,11 +35,11 @@ $(document).ready(function(){
             url: $(this).attr('href'),
             beforeSend: function() {
                 $('#comments-nav').remove();
-                $('.comment-list').remove();
                 $('#loading-comments').slideDown();
             },
             dataType: "html",
             success: function(out) {
+				$('.comment-list').remove();
                 result = $(out).find('.comment-list');
                 nextlink = $(out).find('#comments-nav');
                 $('#loading-comments').slideUp(550);
@@ -54,13 +54,17 @@ $(document).ready(function(){
             type: "GET",
             url: $(this).attr('href'),
             beforeSend: function() {
+				$('#posts-nav').remove();
+				$('#loading-posts').slideDown();
             },
             dataType: "html",
             success: function(out) {
-				$('#posts-nav').slideUp();
-				$('.posts-list').slideUp();
+				$('.posts-list').remove();
                 result = $(out).find('.posts-list');
+				nextlink = $(out).find('#posts-nav');
+				$('#loading-posts').slideUp(550);
                 $('#loading-posts').after(result.fadeIn(800));
+				$('.posts-list').after(nextlink);
             }
         });
     });

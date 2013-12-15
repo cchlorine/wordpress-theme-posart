@@ -1,8 +1,8 @@
 <?php
-function clrs_menu_function(){   
-	add_theme_page('Posart 设置','Posart 设置','administrator','posart','posart_config');
+function posart_menu_function(){   
+	add_theme_page('PosArt 设置','PosArt 设置','administrator','posart','posart_config');
 }
-add_action('admin_menu', 'clrs_menu_function');
+add_action('admin_menu', 'posart_menu_function');
 
 function posart_config(){ ?>
 

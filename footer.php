@@ -18,7 +18,7 @@
 			<a href="javascript:;" class="totop"></a>
 		</div>
 	</div>
-	<script src="<?php bloginfo('template_url'); ?>/posart/comments-ajax.js"></script>
 	<?php wp_footer(); ?>
+	</div>
 </body>
 </html>

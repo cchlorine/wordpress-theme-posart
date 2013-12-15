@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
@@ -13,18 +13,26 @@
 </head>
 
 <body>
+	<div id="header">
+		<ul class="z">
+			<li><a class="main" href="<?php bloginfo('url'); ?>" title="<?php bloginfo('name'); ?>"><?php bloginfo('name'); ?></a></li>
+			<?php
+				$header_menu = array(
+					'theme_location' => 'header_menu',
+					'container' => false,
+					'items_wrap' => '%3$s',
+					'fallback_cb' => 'posart_no_nav',
+				);
+				wp_nav_menu($header_menu);
+			?>
+		</ul>
+		<ul class="y">
+			<?php posart_sns(); ?>
+			<form id="searchform" class="searchform" action="<?php bloginfo('url'); ?>" method="get" role="search">
+				<input id="s" type="text" class="search-input" name="s" value="" placeholder="Search~" autocomplete="off">
+			</form>
+		</ul>
+	</div>
 	<div id="wrapper">
-		<div class="header body cl">
-			<a href="<?php bloginfo('url'); ?>" class="avatar z"><img src="<?php echo get_option('posart_logo'); ?>"></a>
-			<div class="info z">
-				<h2><a href="<?php bloginfo('url'); ?>"><?php bloginfo('name'); ?></a></h2>
-				<p><?php bloginfo('description'); ?></p>
-				<div class="contanct">
-					<?php posart_sns(); ?>
-				</div>
-				<form id="searchform" class="searchform" action="<?php bloginfo('url'); ?>" method="get" role="search">
-					<input id="s" type="text" class="search-input" name="s" value="" placeholder="Search~" autocomplete="off">
-				</form>
-			</div>
-		</div>
+		<a href="<?php bloginfo('url'); ?>" class="header mhidden"><img src="<?php echo get_option('posart_logo'); ?>"></a>
 		<div id="container" class="cl">
