@@ -1,37 +1,29 @@
 <?php get_header(); ?>
-		<div class="body">
-			<?php posart_breadcrumbs(); ?>
-			<div class="content">
-				<?php while ( have_posts() ) : the_post(); ?>
-					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?> style="position: relative; z-index: 1;">
-						<header class="entry-header">
-							<h2 class="entry-title"><?php the_title(); ?></h2>
-							<?php if ( has_post_thumbnail() && ! post_password_required() ) : ?>
-								<?php if( has_post_thumbnail()) {?>
-									<div class="mhidden entry-thumbnail"><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('stumblr-large-image'); ?></a></div>
-								<?php } ?>
-							<?php endif; ?>
-						</header>
-
-						<?php if ( is_search() ) : ?>
-						<div class="entry-summary">
-							<?php the_excerpt(); ?>
-						</div>
-						<?php else : ?>
-						<div class="entry-content">
-							<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentythirteen' ) ); ?>
-							<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentythirteen' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
-						</div>
-						<?php endif; ?>
-					</div>
-				<?php endwhile; ?>
-				<footer>
-					<p class="entry-meta"> <?php the_time('Y-n-j') ?> &nbsp;&nbsp;&nbsp;
-					<?php the_category(', ') ?> &nbsp;&nbsp;&nbsp; <?php the_tags('Tags:',',','')?> &nbsp;&nbsp;&nbsp;</p>
-				</footer>
-				<div class="background" style="background-image: url(<?php bloginfo('template_url'); echo '/images/content/'.rand(1,20);?>.jpg);"></div>
-			</div>
-			<div class="comments"><?php comments_template(); ?></div>
-		</div>
-	<script src="<?php bloginfo('template_url'); ?>/posart/comments-ajax.js"></script>
+<?php while ( have_posts() ) : the_post(); ?>
+	<article class="post<?php if (has_post_thumbnail()) { echo ' thumbnail-on'; }?>">
+		<header class="post-head">
+			<h2 class="post-title">
+				<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>"><?php the_title_attribute(); ?></a>
+			</h2>
+			<time datetime="<?php the_time(); ?>" class="post-time"><?php the_time('Y-m-d'); ?></time>
+		</header>
+		<?php if (has_post_thumbnail()) {?>
+			<section class="post-thumbnail">
+				<a href="<?php the_permalink(); ?>">
+					<img src="<?php the_post_thumbnail('stumblr-large-image'); ?>" alt="<?php the_title_attribute(); ?>" />
+				</a>
+			</section>
+		<?php } ?>
+		<?php if ( is_search() ) : ?>
+			<section class="post-entry">
+				<?php echo posart_strimwidth(strip_tags(apply_filters('the_content', $post->post_content)), 0, 300, '...'); ?>
+			</section>
+		<?php else : ?>
+			<section class="post-content">
+				<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentythirteen' ) ); ?>
+			</section>
+		<?php endif; ?>
+	</article>
+<?php endwhile; ?>
+<div class="comments"><?php comments_template(); ?></div>
 <?php get_footer(); ?>
