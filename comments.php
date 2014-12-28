@@ -3,8 +3,6 @@ if ( post_password_required() )
 	return;
 ?>
 <?php
-
-
 $smile = '<p><a href="javascript:grin(\':?:\')"><img src="' . get_bloginfo('url') . '/wp-includes/images/smilies/icon_question.gif" alt="" /></a>
 	<a href="javascript:grin(\':razz:\')"><img src="' . get_bloginfo('url') . '/wp-includes/images/smilies/icon_razz.gif" alt="" /></a>
 	<a href="javascript:grin(\':sad:\')"><img src="' . get_bloginfo('url') . '/wp-includes/images/smilies/icon_sad.gif" alt="" /></a>
