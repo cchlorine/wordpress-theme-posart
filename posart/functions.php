@@ -30,14 +30,14 @@
 		if ( $max_page == 1 ) return;
 		echo '<div id="pageNav"><div class="page-navigator">';
 		if ( empty( $paged ) ) $paged = 1;
-		echo '<li>'; previous_posts_link('上一页'); echo '</li>';
+		previous_posts_link('上一页');
 
-		if ( $paged > $p + 2 ) echo "<li><span>···</span></li>";
+		if ( $paged > $p + 2 ) echo "<span>···</span>";
 		for( $i = $paged - $p; $i <= $paged + $p; $i++ ) {
-			if ( $i > 0 && $i <= $max_page ) $i == $paged ? print "<li><span class=\"current\">{$i}</span><li>" : '<li>' . p_link( $i ) . '</li>';
+			if ( $i > 0 && $i <= $max_page ) $i == $paged ? print "<span class=\"current\">{$i}</span>" : p_link( $i );
 		}
-		if ( $paged < $max_page - $p - 1 ) echo "<li><span> ... </span></li>";
-		echo '<li>'; next_posts_link('下一页'); echo '</li>';
+		if ( $paged < $max_page - $p - 1 ) echo "<span> ... </span>";
+		next_posts_link('下一页');
 
 		echo '</div></div>';
 	}
