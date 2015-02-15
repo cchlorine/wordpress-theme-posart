@@ -34,7 +34,12 @@
 
 		if ( $paged > $p + 2 ) echo "<li><span>···</span></li>";
 		for( $i = $paged - $p; $i <= $paged + $p; $i++ ) {
-			if ( $i > 0 && $i <= $max_page ) $i == $paged ? print "<li><span class=\"current\">{$i}</span></li>" : "<li>" . p_link( $i ) . "</li>";
+			if ( $i > 0 && $i <= $max_page ) { 
+				if ($i == $paged)
+					echo "<li><span class=\"current\">{$i}</span></li>";
+				else
+					echo p_link( $i );
+			}
 		}
 		if ( $paged < $max_page - $p - 1 ) echo "<li><span> ... </span></li>";
 		echo '<li>'; next_posts_link('下一页'); echo '</li>';
@@ -42,7 +47,7 @@
 		echo '</div></div>';
 	}
 	function p_link( $i, $title = '' ) {
-		echo "<a href='", esc_html( get_pagenum_link( $i ) ), "'>{$i}</a>";
+		echo "<li><a href='", esc_html( get_pagenum_link( $i ) ), "'>{$i}</a></li>";
 	}
 	/*---------------- [ 取消WP默认jQuery ]------------------*/
 	if ( !is_admin() ) {
